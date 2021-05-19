@@ -1,0 +1,21 @@
+.sidebar {
+  display: flex;
+  flex-direction: column;
+  flex: 0.3;
+}
+.sidebar_header {
+  display: flex;
+  justify-content: space-between;
+  padding: 20px;
+  border: 1px solid red;
+
+  /* height: 100%; */
+}
+
+.sidebar_headerRight {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  min-width: 10vw;
+  border: 1px solid brown;
+}
