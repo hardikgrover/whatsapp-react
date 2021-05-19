@@ -50,3 +50,9 @@
   margin-left: 10px;
   border: 1px solid black;
 }
+.sidebar_chat {
+  flex: 1;
+  background-color: white;
+  overflow: scroll;
+  border: 1px solid lime;
+}
