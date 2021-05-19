@@ -1,16 +1,15 @@
 // importing
-// const mongoose = require("mongoose");
 import express from "express";
 import mongoose from "mongoose";
-// const express = require("express");
+import Messages from "./dbMessages.js";
 
 // // app config
-// const express = require("express");
+
 const app = express();
 const port = 9000;
-app.use(express.json());
 
 // middlewares
+app.use(express.json());
 
 // DB config
 mongoose.connect("mongodb://127.0.0.1:27017/whatsappdb", {
@@ -18,11 +17,31 @@ mongoose.connect("mongodb://127.0.0.1:27017/whatsappdb", {
   useCreateIndex: true,
   useUnifiedTopology: true,
 });
-console.log("hih");
 
 // // api routes
 app.get("/", (req, res) => {
   res.status(200).send("hello world");
+});
+
+app.get("/messages/sync", (req, res) => {
+  Messages.find((err, data) => {
+    if (err) {
+      res.status(500).send(err);
+    } else {
+      res.status(200).send(data);
+    }
+  });
+});
+app.post("/messages/new", (req, res) => {
+  const dbMessage = req.body;
+
+  Messages.create(dbMessage, (err, data) => {
+    if (err) {
+      res.status(500).send(err);
+    } else {
+      res.status(201).send(data);
+    }
+  });
 });
 
 // // listner
