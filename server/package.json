@@ -9,5 +9,8 @@
     "start": "node server.js"
   },
   "author": "Hardik",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "pusher": "^5.0.0"
+  }
 }

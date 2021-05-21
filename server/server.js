@@ -1,12 +1,21 @@
 // importing
 import express from "express";
-import mongoose from "mongoose";
+import mongoose, { mongo } from "mongoose";
 import Messages from "./dbMessages.js";
+import pusher from "pusher";
 
 // // app config
 
 const app = express();
 const port = 9000;
+
+const pusher = new Pusher({
+  appId: "1206327",
+  key: "a0a074ba8a4d08e0bb53",
+  secret: "7cf1a001d849d9fd4dd5",
+  cluster: "ap2",
+  useTLS: true,
+});
 
 // middlewares
 app.use(express.json());
@@ -16,6 +25,19 @@ mongoose.connect("mongodb://127.0.0.1:27017/whatsappdb", {
   useNewUrlParser: true,
   useCreateIndex: true,
   useUnifiedTopology: true,
+});
+
+const db = mongoose.connection;
+
+db.once("open", () => {
+  console.log("db is connected");
+});
+
+const msgCollection = db.collection("messagecollection");
+const changeStream = messageCollection.watch();
+
+changeStream.on("change", (change) => {
+  console.log(change);
 });
 
 // // api routes
