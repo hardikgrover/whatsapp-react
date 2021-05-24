@@ -8,12 +8,14 @@ import SearchOutlinedIcon from "@material-ui/icons/SearchOutlined";
 import SearchOutlined from "@material-ui/icons/SearchOutlined";
 import SideBarChat from "./SideBarChat";
 import db from "./firebase";
+import { useStateValue } from "./StateProvider";
 // import SideBarHeader from "./SideBarHeader";
 
 function SideBar() {
   // console.log("Re rendered!!!");
 
   const [rooms, setRooms] = useState([]);
+  const [{ user }, dispatch] = useStateValue();
   useEffect(() => {
     const unsubscribe = db.collection("rooms").onSnapshot((snapshot) => {
       setRooms(
@@ -34,7 +36,7 @@ function SideBar() {
   return (
     <div className="sidebar">
       <div className="sidebar_header">
-        <Avatar src="https://i.pinimg.com/originals/c5/68/3a/c5683a88f3d5a8708208e4ccd694bf50.jpg" />
+        <Avatar src={user?.photoURL} />
         <div className="sidebar_headerRight">
           <IconButton>
             <DonutLargeIcon />
